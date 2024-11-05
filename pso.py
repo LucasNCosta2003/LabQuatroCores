@@ -64,7 +64,7 @@ class ParticleSwarmOptimization:
         :rtype: numpy array.
         """
         # Todo: implement
-        return self.particles[self.best_position_idx].bi
+        return self.particles[self.best_position_idx].bp
 
     def get_best_value(self)->float:
         """
@@ -94,7 +94,7 @@ class ParticleSwarmOptimization:
         for i in range(self.num):
             rp=random.uniform(0,1)
             rg=random.uniform(0,1)
-            self.particles[i].v=self.w*self.particles[i].v+rp*self.phip*(self.particles[i].bp-self.particles[i].x)+rg*self.phig*(self.particles[self.best_position_idx].bi-self.particles[i].x)
+            self.particles[i].v=self.w*self.particles[i].v+rp*self.phip*(self.particles[i].bp-self.particles[i].x)+rg*self.phig*(self.particles[self.best_position_idx].bp-self.particles[i].x)
             self.particles[i].v=np.clip(self.particles[i].v,-self.delta,self.delta)
             self.particles[i].x=np.clip(self.particles[i].x+self.particles[i].v,self.lower_bound,self.upper_bound)
             
@@ -110,7 +110,7 @@ class ParticleSwarmOptimization:
         self.particles[self.evaluate_idx].value=value
         if value>self.particles[self.evaluate_idx].best_value:
             self.particles[self.evaluate_idx].best_value=value
-            self.particles[self.evaluate_idx].bi=self.particles[self.evaluate_idx].x
+            self.particles[self.evaluate_idx].bp=self.particles[self.evaluate_idx].x
         if value>self.particles[self.best_position_idx].best_value:
             self.best_position_idx=self.evaluate_idx
         if self.evaluate_idx==self.num-1:
